@@ -119,7 +119,7 @@ class MongoScheduler(Scheduler):
             print("heyy")
             db = app.conf.CELERY_MONGODB_SCHEDULER_DB
         else:
-            db = "mongodbfm5dev"
+            db = None
         if hasattr(app.conf, "mongodb_scheduler_connection_alias"):
             alias = app.conf.get('mongodb_scheduler_connection_alias')
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS"):
@@ -162,6 +162,7 @@ class MongoScheduler(Scheduler):
         self.sync()
         d = {}
         for doc in self.Model.objects.filter(enabled=True):
+            print(doc)
             d[doc.name] = self.Entry(doc)
         return d
 
