@@ -126,20 +126,22 @@ class MongoScheduler(Scheduler):
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS"):
             alias = app.conf.CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS
         else:
-            alias = "default"
+            alias = "celery"
 
         if hasattr(app.conf, "mongodb_scheduler_url"):
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = app.conf.get('mongodb_scheduler_url')
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_URL"):
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = app.conf.CELERY_MONGODB_SCHEDULER_URL
         else:
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = None
 
         self._mongo = mongoengine.connect(db, host=host)
-        print("YOO")
+        
         if host:
+            print("YOO")
             logger.info("backend scheduler using %s/%s:%s",
                         host, db, self.Model._get_collection().name)
+            print("HEYY")
         else:
             logger.info("backend scheduler using %s/%s:%s",
                         "mongodb://localhost", db, self.Model._get_collection().name)
