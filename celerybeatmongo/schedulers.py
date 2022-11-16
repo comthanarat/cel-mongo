@@ -136,6 +136,7 @@ class MongoScheduler(Scheduler):
             host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
         print(db)
         db = "mongodbfm5dev"
+        print(db)
         self._mongo = mongoengine.connect(db, host=host, alias=alias)
 
         if host:
