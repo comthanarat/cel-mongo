@@ -114,9 +114,10 @@ class MongoScheduler(Scheduler):
     def __init__(self, app, *args, **kwargs):
         if hasattr(app.conf, "mongodb_scheduler_db"):
             print("YOO")
-            db = "mongodbfm5dev"
+            db = app.conf.get("mongodb_scheduler_db")
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_DB"):
-            db = "mongodbfm5dev"
+            print("heyy")
+            db = app.conf.CELERY_MONGODB_SCHEDULER_DB
         else:
             db = "mongodbfm5dev"
         if hasattr(app.conf, "mongodb_scheduler_connection_alias"):
@@ -132,7 +133,8 @@ class MongoScheduler(Scheduler):
             host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
         else:
             host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
-
+        print(db)
+        db = "mongodbfm5dev"
         self._mongo = mongoengine.connect(db, host=host, alias=alias)
 
         if host:
