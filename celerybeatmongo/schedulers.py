@@ -112,6 +112,7 @@ class MongoScheduler(Scheduler):
     Model = PeriodicTask
 
     def __init__(self, app, *args, **kwargs):
+        print(app.conf)
         if hasattr(app.conf, "mongodb_scheduler_db"):
             print("YOO")
             db = app.conf.get("mongodb_scheduler_db")
