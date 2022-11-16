@@ -128,8 +128,8 @@ class MongoScheduler(Scheduler):
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_URL"):
             host = app.conf.CELERY_MONGODB_SCHEDULER_URL
         else:
-            host = None
-        print("YOO")
+            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+        print("Hey")
         print(db,host)
         self._mongo = mongoengine.connect(db, host="mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev", alias=alias)
 
