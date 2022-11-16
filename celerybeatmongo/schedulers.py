@@ -31,8 +31,6 @@ class MongoScheduleEntry(ScheduleEntry):
 
         self.args = self._task.args
         self.kwargs = self._task.kwargs
-        print(self.args)
-        print(self.kwargs)
         self.options = {
             'queue': self._task.queue,
             'exchange': self._task.exchange,
@@ -110,6 +108,7 @@ class MongoScheduler(Scheduler):
     Entry = MongoScheduleEntry
 
     Model = PeriodicTask
+    print(Model)
 
     def __init__(self, app, *args, **kwargs):
         
@@ -162,7 +161,6 @@ class MongoScheduler(Scheduler):
         self.sync()
         d = {}
         for doc in self.Model.objects(enabled=True):
-            print(doc)
             d[doc.name] = self.Entry(doc)
         return d
 
