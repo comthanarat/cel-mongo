@@ -115,7 +115,7 @@ class MongoScheduler(Scheduler):
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_DB"):
             db = app.conf.CELERY_MONGODB_SCHEDULER_DB
         else:
-            db = "celery"
+            db = "mongodbfm5dev"
         if hasattr(app.conf, "mongodb_scheduler_connection_alias"):
             alias = app.conf.get('mongodb_scheduler_connection_alias')
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS"):
@@ -124,11 +124,11 @@ class MongoScheduler(Scheduler):
             alias = "default"
 
         if hasattr(app.conf, "mongodb_scheduler_url"):
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/"
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_URL"):
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/"
         else:
-            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev"
+            host = "mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/"
 
         self._mongo = mongoengine.connect(db, host=host, alias=alias)
 
