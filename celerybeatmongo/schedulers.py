@@ -139,8 +139,7 @@ class MongoScheduler(Scheduler):
         
         if host:
             print("YOO")
-            logger.info("backend scheduler using %s/%s:%s",
-                        host, db, self.Model._get_collection().name)
+            logger.info("backend scheduler Custom for FMS")
             print("HEYY")
         else:
             logger.info("backend scheduler using %s/%s:%s",
