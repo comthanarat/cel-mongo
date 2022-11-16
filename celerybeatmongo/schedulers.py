@@ -31,6 +31,8 @@ class MongoScheduleEntry(ScheduleEntry):
 
         self.args = self._task.args
         self.kwargs = self._task.kwargs
+        print(self.args)
+        print(self.kwargs
         self.options = {
             'queue': self._task.queue,
             'exchange': self._task.exchange,
