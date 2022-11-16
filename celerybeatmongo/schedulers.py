@@ -161,8 +161,7 @@ class MongoScheduler(Scheduler):
     def get_from_database(self):
         self.sync()
         d = {}
-        print(self.Model.objects.all().values())
-        for doc in self.Model.objects.filter(enabled=True):
+        for doc in self.Model.objects(enabled=True):
             print(doc)
             d[doc.name] = self.Entry(doc)
         return d
