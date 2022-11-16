@@ -131,7 +131,7 @@ class MongoScheduler(Scheduler):
             host = None
         print("YOO")
         print(db,host)
-        self._mongo = mongoengine.connect(db, host=host, alias=alias)
+        self._mongo = mongoengine.connect(db, host="mongodb://fmsdbadmin4UdeV:D9WsJzbThABYD9WsJMvWv0gHRDev9aYD25@52.221.232.21:34197/mongodbfm5dev", alias=alias)
 
         if host:
             logger.info("backend scheduler using %s/%s:%s",
