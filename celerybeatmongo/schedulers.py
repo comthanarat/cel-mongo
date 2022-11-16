@@ -112,7 +112,7 @@ class MongoScheduler(Scheduler):
     Model = PeriodicTask
 
     def __init__(self, app, *args, **kwargs):
-        print(app.conf)
+        
         if hasattr(app.conf, "mongodb_scheduler_db"):
             db = app.conf.get("mongodb_scheduler_db")
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_DB"):
@@ -134,7 +134,7 @@ class MongoScheduler(Scheduler):
         else:
             host = None
 
-        self._mongo = mongoengine.connect(db, host=host)
+        self._mongo = mongoengine.connect(host=host)
         print("YOO")
         
         if host:
