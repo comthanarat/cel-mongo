@@ -108,23 +108,20 @@ class MongoScheduler(Scheduler):
     Entry = MongoScheduleEntry
 
     Model = PeriodicTask
-    print(Model)
 
     def __init__(self, app, *args, **kwargs):
-        
         if hasattr(app.conf, "mongodb_scheduler_db"):
             db = app.conf.get("mongodb_scheduler_db")
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_DB"):
-            print("heyy")
             db = app.conf.CELERY_MONGODB_SCHEDULER_DB
         else:
-            db = None
+            db = "celery"
         if hasattr(app.conf, "mongodb_scheduler_connection_alias"):
             alias = app.conf.get('mongodb_scheduler_connection_alias')
         elif hasattr(app.conf, "CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS"):
             alias = app.conf.CELERY_MONGODB_SCHEDULER_CONNECTION_ALIAS
         else:
-            alias = "celery"
+            alias = "default"
 
         if hasattr(app.conf, "mongodb_scheduler_url"):
             host = app.conf.get('mongodb_scheduler_url')
@@ -133,11 +130,11 @@ class MongoScheduler(Scheduler):
         else:
             host = None
 
-        self._mongo = mongoengine.connect(host=host)
-        print("YOO")
-        
+        self._mongo = mongoengine.connect(db, host=host, alias=alias)
+
         if host:
-            logger.info("backend scheduler Custom for FMS")
+            logger.info("backend scheduler using %s/%s:%s",
+                        host, db, self.Model._get_collection().name)
         else:
             logger.info("backend scheduler using %s/%s:%s",
                         "mongodb://localhost", db, self.Model._get_collection().name)
@@ -159,8 +156,9 @@ class MongoScheduler(Scheduler):
 
     def get_from_database(self):
         self.sync()
+        print("YOO")
         d = {}
-        for doc in self.Model.objects(enabled=True):
+        for doc in self.Model.objects.filter(enabled=True):
             d[doc.name] = self.Entry(doc)
         return d
 
